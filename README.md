@@ -1,52 +1,47 @@
-# 🚗 Auto Price Prediction using Neural Networks and ONNX
+# 🚀 Machine Learning Projects (ONNX + GitHub Pages)
 
-This project predicts automobile prices based on technical and categorical attributes from the UCI “Automobile” dataset.  
-It trains multiple neural network architectures and a Random Forest model, compares their performance, and deploys the best model using **ONNX** on **GitHub Pages** for browser-based inference.
-
----
-
-## 🧩 Features
-- Data preprocessing (imputation, scaling, one-hot encoding)
-- Three neural network architectures: SimpleNN, DeepNN, WideNN
-- Random Forest model for comparison
-- R² score and loss visualization
-- Export to **ONNX** format
-- Browser-based demo using **ONNX Runtime Web**
+This repository includes two simple machine learning projects trained in Python and deployed using **ONNX Runtime Web** so you can run predictions directly in your browser.
 
 ---
 
-## ⚙️ Requirements
-Install dependencies before running the code:
-```bash
+## 🧠 1. Auto Price Prediction
 
+**Goal:** Predict the price of a car based on its features.
 
----
+**Steps:**
+1. Data preprocessing (handling missing values, encoding, scaling)
+2. Train models (Neural Network + Random Forest)
+3. Evaluate using R² score
+4. Export the best model to `model.onnx`
+5. Use `index_auto.html` to test predictions on the web
 
-## 💰 **2️⃣ Adult Income Classification (XGBoost + ONNX + Web Demo)**
-
-### 📄 `README.md`
-
-```markdown
-# 💼 Adult Income Classification using XGBoost and ONNX
-
-This project classifies whether an individual earns more than $50K per year using demographic information from the UCI Adult dataset.  
-The model is trained with **XGBoost**, evaluated with multiple metrics, and deployed using **ONNX Runtime Web** for browser predictions.
+**Results:**
+- Accuracy (R²): ~0.90  
+- Best Model: Random Forest  
 
 ---
 
-## 🧩 Features
-- Handles categorical and numerical features
-- SMOTE oversampling for balanced data
-- Model training using **XGBoost**
-- Performance metrics: Accuracy, Precision, Recall, F1-score, ROC-AUC
-- Confusion matrix, ROC curve, and feature importance visualizations
-- Model exported to **ONNX**
-- Web demo with ONNX Runtime Web
+## 💼 2. Adult Income Classification
+
+**Goal:** Predict if a person earns more than \$50K/year.
+
+**Steps:**
+1. Clean and encode the data
+2. Apply SMOTE for class balancing
+3. Train an XGBoost classifier
+4. Evaluate using Accuracy, F1, and ROC-AUC
+5. Export model to `xgb_model.onnx`
+6. Use `index_income.html` for web demo
+
+**Results:**
+- Accuracy: ~90%  
+- F1 Score: ~0.89  
 
 ---
 
 ## ⚙️ Requirements
-Install dependencies:
-```bash
-pip install pandas numpy scikit-learn xgboost imbalanced-learn matplotlib seaborn onnx onnxruntime
 
+Install the required libraries before running:
+
+```bash
+pip install pandas numpy scikit-learn torch xgboost imbalanced-learn onnx onnxruntime matplotlib seaborn
