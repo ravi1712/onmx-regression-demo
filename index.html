@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ML Models Demo (ONNX)</title>
+  <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f7f7f7; color: #333; text-align: center; }
+    h1 { color: #0077cc; }
+    .container { background: white; padding: 20px; margin: 20px auto; border-radius: 10px; max-width: 500px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input { padding: 6px; margin: 5px; width: 90%; }
+    button { padding: 8px 16px; background: #0077cc; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background: #005fa3; }
+    .output { font-weight: bold; margin-top: 10px; color: green; }
+  </style>
+</head>
+<body>
+
+  <h1>🚀 Machine Learning Models Demo</h1>
+
+  <!-- Auto Price Prediction -->
+  <div class="container">
+    <h2>Auto Price Prediction</h2>
+    <p>Enter input features (comma-separated)</p>
+    <input id="autoInput" placeholder="e.g. 4, 120, 200, 1.8, 0.9, ..." />
+    <button onclick="predictAuto()">Predict Price</button>
+    <div class="output" id="autoOutput"></div>
+  </div>
+
+  <!-- Adult Income Classification -->
+  <div class="container">
+    <h2>Adult Income Classification</h2>
+    <p>Enter input features (comma-separated)</p>
+    <input id="incomeInput" placeholder="e.g. 39, 7, 77516, 9, 1, 4, ..." />
+    <button onclick="predictIncome()">Predict Income</button>
+    <div class="output" id="incomeOutput"></div>
+  </div>
+
+  <script>
+    async function predictAuto() {
+      const inputText = document.getElementById("autoInput").value.trim();
+      const values = inputText.split(",").map(Number);
+      const tensor = new ort.Tensor("float32", Float32Array.from(values), [1, values.length]);
+      const session = await ort.InferenceSession.create("model.onnx");
+      const output = await session.run({ input: tensor });
+      const result = output[Object.keys(output)[0]].data[0];
+      document.getElementById("autoOutput").innerText = `Predicted Price: ${result.toFixed(2)}`;
+    }
+
+    async function predictIncome() {
+      const inputText = document.getElementById("incomeInput").value.trim();
+      const values = inputText.split(",").map(Number);
+      const tensor = new ort.Tensor("float32", Float32Array.from(values), [1, values.length]);
+      const session = await ort.InferenceSession.create("xgb_model.onnx");
+      const output = await session.run({ input: tensor });
+      const result = output[Object.keys(output)[0]].data[0];
+      const label = result > 0.5 ? ">50K" : "<=50K";
+      document.getElementById("incomeOutput").innerText = `Predicted Income: ${label}`;
+    }
+  </script>
+</body>
+</html>
